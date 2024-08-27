@@ -1,0 +1,42 @@
+package it.nicolasanti.manager;
+
+import it.nicolasanti.utils.ClearThreadUnsafeLoggerAdvisor;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class RAGManager {
+
+    ChatClient chatClient;
+
+    public RAGManager(@Value("classpath:/prompts/rag-system.st") Resource flowersSystem,
+                      ChatClient.Builder builder, ChatMemory chatMemory, OpenAiChatModel openAiChatModel, VectorStore vectorStore) {
+        chatClient = builder
+                    .defaultSystem(flowersSystem)
+                    .defaultAdvisors(List.of(new MessageChatMemoryAdvisor(chatMemory),
+                                             new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()
+                                                                           .withTopK(3)),
+                                             new ClearThreadUnsafeLoggerAdvisor()))
+                    .build();
+    }
+
+    public String ragResponse(String message) {
+        return chatClient.prompt()
+                .user(message)
+                .advisors(a -> a.param(QuestionAnswerAdvisor.FILTER_EXPRESSION, "source == 'article.docx'"))
+                .call()
+                .content();
+    }
+
+
+}
