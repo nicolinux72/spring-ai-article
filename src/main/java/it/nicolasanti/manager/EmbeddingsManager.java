@@ -11,12 +11,22 @@ import java.util.List;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
+/**
+ * Service class for managing embeddings using OpenAI's embedding model.
+ */
 @Service
 public class EmbeddingsManager {
 
     @Autowired
     EmbeddingModel embeddingModel;
 
+    /**
+     * Encodes the given texts into embeddings.
+     * If no texts are provided, it uses default example texts.
+     *
+     * @param texts List of strings to be encoded
+     * @return EmbeddingResponse containing the encoded embeddings
+     */
     public EmbeddingResponse encode(List<String> texts) {
 
         if (isEmpty(texts)) {

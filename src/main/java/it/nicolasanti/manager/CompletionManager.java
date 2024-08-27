@@ -17,12 +17,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Manages chat completions and response generation using an AI chat model.
+ * This class provides functionality for generating chat responses and structuring information about Polish poetry.
+ */
 @Service
 public class CompletionManager {
 
     private final OpenAiChatModel openAiChatModel;
     ChatClient chatClient;
 
+    /**
+     * Constructs a CompletionManager with the necessary dependencies.
+     * Initializes the chatClient with default system prompt and memory advisor.
+     *
+     * @param flowersSystem Resource containing the system prompt
+     * @param builder ChatClient.Builder for constructing the chatClient
+     * @param chatMemory ChatMemory for maintaining conversation history
+     * @param openAiChatModel OpenAiChatModel instance
+     */
     public CompletionManager(@Value("classpath:/prompts/flowers-system.st") Resource flowersSystem,
                              ChatClient.Builder builder, ChatMemory chatMemory, OpenAiChatModel openAiChatModel) {
         this.openAiChatModel = openAiChatModel;
@@ -32,6 +45,12 @@ public class CompletionManager {
                 .build();
     }
 
+    /**
+     * Generates a chat response based on the given user message.
+     *
+     * @param message The input message from the user
+     * @return The generated response content as a String
+     */
     public String chatResponse(String message) {
         return chatClient.prompt()
                 //.advisors(new SimpleLoggerAdvisor())
@@ -50,6 +69,13 @@ public class CompletionManager {
     }
 
 
+    /**
+     * Generates a structured response about Polish poetry works based on the given message.
+     * Uses a custom output converter to format the response as a Works object.
+     *
+     * @param message The input message from the user
+     * @return A Works object containing information about Polish poetry works and the poet
+     */
     public Works entity(String message) {
 
         var outputConverter = new BeanOutputConverter<>(CompletionManager.Works.class);

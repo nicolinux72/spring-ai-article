@@ -14,11 +14,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing Retrieval-Augmented Generation (RAG) operations.
+ * This class sets up and uses a ChatClient with various advisors for enhanced chat functionality.
+ */
 @Service
 public class RAGManager {
 
     ChatClient chatClient;
 
+    /**
+     * Constructor that initializes the ChatClient with specific configurations and advisors.
+     *
+     * @param flowersSystem   Resource containing the system prompt for the chat
+     * @param builder         ChatClient.Builder for constructing the ChatClient
+     * @param chatMemory      ChatMemory for maintaining conversation context
+     * @param openAiChatModel OpenAiChatModel for the chat model
+     * @param vectorStore     VectorStore for semantic search capabilities
+     */
     public RAGManager(@Value("classpath:/prompts/rag-system.st") Resource flowersSystem,
                       ChatClient.Builder builder, ChatMemory chatMemory, OpenAiChatModel openAiChatModel, VectorStore vectorStore) {
         chatClient = builder
@@ -30,6 +43,12 @@ public class RAGManager {
                     .build();
     }
 
+    /**
+     * Generates a response using the RAG approach.
+     *
+     * @param message The user's input message
+     * @return The generated response from the chat model
+     */
     public String ragResponse(String message) {
         return chatClient.prompt()
                 .user(message)
@@ -37,6 +56,4 @@ public class RAGManager {
                 .call()
                 .content();
     }
-
-
 }
