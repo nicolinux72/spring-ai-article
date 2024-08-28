@@ -10,6 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+/**
+ * This class is not a true unit test, but rather a simple client for the EmbeddingsManager service.
+ * It demonstrates how to use EmbeddingsManager in a Spring Boot context.
+ */
 @SpringBootTest(classes = Application.class)
 //@ExtendWith(MockitoExtension.class)
 public class EmbeddingsManagerTest {
@@ -23,5 +27,7 @@ public class EmbeddingsManagerTest {
 
     }
 
+
+    
 
 }

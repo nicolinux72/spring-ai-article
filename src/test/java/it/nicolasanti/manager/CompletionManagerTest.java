@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * This class is not a true unit test, but rather a simple client for the CompletionManager service.
+ * It demonstrates how to use CompletionManager in a Spring Boot context.
+ */
 @SpringBootTest(classes = Application.class)
 //@ExtendWith(MockitoExtension.class)
 public class CompletionManagerTest {
@@ -23,7 +27,7 @@ public class CompletionManagerTest {
     }
 
     @Test
-    public void testJsonResponse() {
+    public void testEntityResponse() {
         //assertNotNull(response);
         CompletionManager.Works entity = completionManager.entity("Riporta la lista delle più belle poesie di Wisława Szymborska in formato json. ");
     }

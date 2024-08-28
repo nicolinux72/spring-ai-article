@@ -11,6 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * This class is not a true unit test, but rather a simple client for the VectorDBManager service.
+ * It demonstrates how to use VectorDBManager in a Spring Boot context.
+ */
 @SpringBootTest(classes = Application.class)
 //@ExtendWith(MockitoExtension.class)
 public class VectorDBManagerTest {

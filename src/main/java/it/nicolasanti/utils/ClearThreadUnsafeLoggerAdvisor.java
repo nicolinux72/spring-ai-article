@@ -12,8 +12,19 @@ import reactor.core.publisher.Flux;
 
 import java.util.Map;
 
+/**
+ * This class implements the RequestResponseAdvisor interface to provide logging functionality
+ * for AI chat requests and responses. It is not thread-safe and should not be used 
+ * in multi-threaded environments.
+ */
 public class ClearThreadUnsafeLoggerAdvisor implements RequestResponseAdvisor {
 
+    /**
+     * Advises the request by logging its contents.
+     * @param request The advised request
+     * @param context The context map
+     * @return The original request
+     */
     public AdvisedRequest adviseRequest(AdvisedRequest request, Map<String, Object> context) {
         System.out.println("request:");
         System.out.printf("   SYSTEM: %s%n", request.systemText());
@@ -30,10 +41,22 @@ public class ClearThreadUnsafeLoggerAdvisor implements RequestResponseAdvisor {
         return request;
     }
 
+    /**
+     * Advises the response by aggregating and logging its contents.
+     * @param fluxChatResponse The flux of chat responses
+     * @param context The context map
+     * @return The aggregated and logged flux of chat responses
+     */
     public Flux<ChatResponse> adviseResponse(Flux<ChatResponse> fluxChatResponse, Map<String, Object> context) {
         return (new MessageAggregator()).aggregate(fluxChatResponse, System.out::println);
     }
 
+    /**
+     * Advises a single chat response by logging its contents.
+     * @param response The chat response
+     * @param context The context map
+     * @return The original chat response
+     */
     public ChatResponse adviseResponse(ChatResponse response, Map<String, Object> context) {
         System.out.println("response:");
 
@@ -43,6 +66,10 @@ public class ClearThreadUnsafeLoggerAdvisor implements RequestResponseAdvisor {
         return response;
     }
 
+    /**
+     * Returns the simple name of this class.
+     * @return The simple name of the class
+     */
     public String toString() {
         return ClearThreadUnsafeLoggerAdvisor.class.getSimpleName();
     }

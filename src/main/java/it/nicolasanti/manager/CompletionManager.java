@@ -24,7 +24,6 @@ import java.util.List;
 @Service
 public class CompletionManager {
 
-    private final OpenAiChatModel openAiChatModel;
     ChatClient chatClient;
 
     /**
@@ -34,11 +33,10 @@ public class CompletionManager {
      * @param flowersSystem Resource containing the system prompt
      * @param builder ChatClient.Builder for constructing the chatClient
      * @param chatMemory ChatMemory for maintaining conversation history
-     * @param openAiChatModel OpenAiChatModel instance
      */
     public CompletionManager(@Value("classpath:/prompts/flowers-system.st") Resource flowersSystem,
-                             ChatClient.Builder builder, ChatMemory chatMemory, OpenAiChatModel openAiChatModel) {
-        this.openAiChatModel = openAiChatModel;
+                             ChatClient.Builder builder, ChatMemory chatMemory) {
+
         chatClient =  builder
                 .defaultSystem(flowersSystem)
                 .defaultAdvisors(List.of(new MessageChatMemoryAdvisor(chatMemory) ))

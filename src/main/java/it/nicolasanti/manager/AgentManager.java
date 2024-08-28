@@ -8,8 +8,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 /**
- * Service class responsible for managing AI agent interactions.
- * It configures and uses a ChatClient to process user messages.
+ * Service class responsible for managing AI functions interactions.
+ * It configures and uses a ChatClient to process user request.
  */
 @Service
 public class AgentManager {

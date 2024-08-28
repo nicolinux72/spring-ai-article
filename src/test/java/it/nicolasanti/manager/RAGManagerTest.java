@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * This class is not a true unit test, but rather a simple client for the RAGManager service.
+ * It demonstrates how to use RAGManager in a Spring Boot context.
+ */
 @SpringBootTest(classes = Application.class)
 //@ExtendWith(MockitoExtension.class)
 public class RAGManagerTest {

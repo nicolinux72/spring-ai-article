@@ -61,7 +61,7 @@ public class VectorDBManager {
      */
     List<Document> readWordDoc() {
 
-        var wordDoc = new DefaultResourceLoader().getResource("classpath:/etl/article.docx");
+        var wordDoc = new DefaultResourceLoader().getResource("classpath:/etl/rag.docx");
 
         TikaDocumentReader tikaDocumentReader = new TikaDocumentReader(wordDoc);
         TokenTextSplitter splitter = new TokenTextSplitter(500, 400, 10, 1000, true);

@@ -29,11 +29,10 @@ public class RAGManager {
      * @param flowersSystem   Resource containing the system prompt for the chat
      * @param builder         ChatClient.Builder for constructing the ChatClient
      * @param chatMemory      ChatMemory for maintaining conversation context
-     * @param openAiChatModel OpenAiChatModel for the chat model
      * @param vectorStore     VectorStore for semantic search capabilities
      */
     public RAGManager(@Value("classpath:/prompts/rag-system.st") Resource flowersSystem,
-                      ChatClient.Builder builder, ChatMemory chatMemory, OpenAiChatModel openAiChatModel, VectorStore vectorStore) {
+                      ChatClient.Builder builder, ChatMemory chatMemory, VectorStore vectorStore) {
         chatClient = builder
                     .defaultSystem(flowersSystem)
                     .defaultAdvisors(List.of(new MessageChatMemoryAdvisor(chatMemory),

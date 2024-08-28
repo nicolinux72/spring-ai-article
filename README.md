@@ -8,4 +8,5 @@ In this field, the langchain python library is the master, so it will be my conc
 Italian prompts can, perhaps, be appreciated, to show a localized use of the famous ChatGPT.
 As usual, the source code of the project is available on github and you will find a long annotated bibliography. 
 
-Read at medium.com
+Read at medium.com [medium.com](https://medium.com/p/be6e2f75516e)
+Leggi in italiano [medium.com](https://medium.com/p/b5d5aea66f73)
