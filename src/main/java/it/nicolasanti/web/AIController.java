@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/** This classe is a simple example of a REST controller that uses service classes for AI functionality.
+/** This class is a simple example of a REST controller that uses service classes for AI functionality.
  * It provides an endpoint to get completion responses based on an input message.	
  */
 @RestController
