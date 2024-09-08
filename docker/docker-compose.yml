@@ -1,0 +1,38 @@
+services:
+  tempo:
+    image: grafana/tempo:2.5.0
+    container_name: tempo
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ${PWD}/docker/tempo/tempo-local.yaml:/etc/tempo.yaml:ro
+    ports:
+      - "14268:14268" # jaeger ingest
+      - "9411:9411" # zipkin
+      - "4317:4317"
+      - "4318:4318"
+      - "3200:3200"
+    labels:
+      org.springframework.boot.readiness-check.tcp.disable: true
+
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: grafana
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    volumes:
+      - ${PWD}/docker/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    ports:
+      - "3000:3000"
+    labels:
+      org.springframework.boot.readiness-check.tcp.disable: true
+
+  pgsql:
+    container_name: pgsql
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=root
